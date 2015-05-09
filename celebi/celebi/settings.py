@@ -55,7 +55,9 @@ ROOT_URLCONF = 'celebi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(os.path.dirname(__file__), '../static').replace('\\','/'),
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
