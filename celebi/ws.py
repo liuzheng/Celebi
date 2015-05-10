@@ -14,6 +14,7 @@ import subprocess
 import time
 import StringIO
 import json
+import tornado.escape
 
 
 class Index(tornado.web.RequestHandler):
@@ -51,14 +52,22 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
         print "Chat WebSocket Open"
+        ChatSocketHandler.waiters.add(self)
 
     def on_close(self):
         print "Chat WebSocket Clost"
+        ChatSocketHandler.waiters.remove(self)
 
-    def on_message(self, e):
+    def on_message(self, msg):
         print "on_message "
-        send = {"msg": e, "time": time.mktime(time.localtime())}
-        self.write_message(json.dumps(send))
+        # msg = tornado.escape.json_decode(msg)
+        chat = {
+            # "id": str(uuid.uuid4()),
+            "time": time.mktime(time.localtime()),
+            "msg": msg
+        }
+        for waiter in ChatSocketHandler.waiters:
+            waiter.write_message(chat)
 
 
 class PLSocketHandler(tornado.websocket.WebSocketHandler):

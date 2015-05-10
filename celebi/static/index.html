@@ -75,6 +75,7 @@
                 var ChatBox = document.getElementById('ChatBox');
                 ChatBox.innerHTML += ss;
                 ChatBox.scrollTop = ChatBox.scrollHeight;
+                CheckTime()
             }
         }
         function CheckTime() {
@@ -90,13 +91,15 @@
                         $(this).html(" " + Math.round(deltaMin) + " min")
                     }
                 } else {
+                    if (deltaSecond < 5){
+                        $(this).html(" Now ")
+                    }else{
                     $(this).html(" " + Math.round(deltaSecond) + " sec")
-                }
+                }}
             })
         }
         function sendMsg() {
             chat.send(document.getElementById('YourMessage').value);
-            CheckTime();
         }
     </script>
 </head>
@@ -439,7 +442,7 @@
                 <h4 class="widget-title lighter smaller">
                     <i class="ace-icon fa fa-comment blue"></i>
                     Conversation
-                    <a href="" id="ChatStatus" onclick="onLoad()">Offline</a>
+                    <a href="#" id="ChatStatus" onclick="onLoad()">Offline</a>
                 </h4>
             </div>
 
