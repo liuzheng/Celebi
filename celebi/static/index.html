@@ -91,16 +91,23 @@
                         $(this).html(" " + Math.round(deltaMin) + " min")
                     }
                 } else {
-                    if (deltaSecond < 5){
+                    if (deltaSecond < 5) {
                         $(this).html(" Now ")
-                    }else{
-                    $(this).html(" " + Math.round(deltaSecond) + " sec")
-                }}
+                    } else {
+                        $(this).html(" " + Math.round(deltaSecond) + " sec")
+                    }
+                }
             })
         }
         function sendMsg() {
             chat.send(document.getElementById('YourMessage').value);
         }
+        $(document).keypress(function (e) {
+            // 回车键事件
+            if (e.which == 13) {
+                sendMsg();
+            }
+        });
     </script>
 </head>
 <body class="no-skin" onload="onLoad();">
@@ -577,7 +584,7 @@
                         </div>
                     </div>
 
-                    <form>
+{#                    <form>#}
                         <div class="form-actions">
                             <div class="input-group">
                                 <input placeholder="Type your message here ..." type="text" class="form-control"
@@ -591,7 +598,7 @@
 																</span>
                             </div>
                         </div>
-                    </form>
+{#                    </form>#}
                 </div>
                 <!-- /.widget-main -->
             </div>
