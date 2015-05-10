@@ -30,7 +30,8 @@
     <![endif]-->
 
     <!-- inline styles related to this page -->
-
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/moment.min.js"></script>
     <!-- ace settings handler -->
     <script src="assets/js/ace-extra.min.js"></script>
 
@@ -50,18 +51,21 @@
         var chat;
         function onLoad() {
             chat = new WebSocket("ws://" + document.domain + ":8001/chat");
+            document.getElementById("ChatStatus").innerHTML = "Online";
             chat.onmessage = function (e) {
 //                document.getElementById('msgs').innerHTML += "<br />" + e.data;
+                var data = JSON.parse(e.data);
                 var ChatDetail = e.data;//"hellohelllo";
                 var Position = "admin";
                 var NickName = "Bob";
                 var UserAvatar = "user.jpg";
-                var Time = "2min";
+                var Time = data["time"];
                 var ss = "<div class=\"itemdiv dialogdiv\"><div class=\"user\"><img alt=\"" +
                         NickName + "'s Avatar\" src=\"assets\/avatars\/" +
-                        UserAvatar+"\"/></div><div class=\"body\"><div class=\"time\">" +
+                        UserAvatar + "\"/></div><div class=\"body\"><div class=\"time\">" +
                         "<i class=\"ace-icon fa fa-clock-o\"></i>" +
-                        "<span class=\"_timestamp js-short-timestamp js-relative-timestamp\" data-time=\"1431228171\" data-time-ms=\"1431228171000\" data-long-form=\"true\" aria-hidden=\"true\">2 hrs</span>"+
+                        "<span class=\"_timestamp js-short-timestamp js-relative-timestamp\" data-time=\"" +
+                        Time + "\" data-long-form=\"true\" aria-hidden=\"true\"> Now </span>" +
                         "</div><div class=\"name\"><a href=\"#\">" +
                         NickName + "</a><span class=\"label label-info arrowed arrowed-in-right\">" +
                         Position + "</span></div><div class=\"text\">" +
@@ -73,9 +77,26 @@
                 ChatBox.scrollTop = ChatBox.scrollHeight;
             }
         }
+        function CheckTime() {
+            $("span._timestamp").each(function () {
+                var deltaSecond = moment().diff($(this).attr("data-time") * 1000) / 1000;
+                {#                console.log(deltaSecond);#}
+                if (deltaSecond > 60) {
+                    var deltaMin = deltaSecond / 60;
+                    if (deltaMin > 60) {
+                        var deltaHour = deltaMin / 60;
+                        $(this).html(" " + Math.round(deltaHour) + " hour")
+                    } else {
+                        $(this).html(" " + Math.round(deltaMin) + " min")
+                    }
+                } else {
+                    $(this).html(" " + Math.round(deltaSecond) + " sec")
+                }
+            })
+        }
         function sendMsg() {
-//            document.getElementById('msgs').innerHTML = '';
             chat.send(document.getElementById('YourMessage').value);
+            CheckTime();
         }
     </script>
 </head>
@@ -406,7 +427,7 @@
     </div>
     <!-- /.navbar-container -->
 </div>
-
+<button class="btn btn-danger" onclick="CheckTime()">CheckTime</button>
 <div class="col-md-12">
     <div class="col-md-6">
         hello
@@ -418,6 +439,7 @@
                 <h4 class="widget-title lighter smaller">
                     <i class="ace-icon fa fa-comment blue"></i>
                     Conversation
+                    <a href="" id="ChatStatus" onclick="onLoad()">Offline</a>
                 </h4>
             </div>
 
