@@ -26,5 +26,10 @@ urlpatterns = [
         {'document_root': os.path.join(os.path.dirname(__file__), '../static/js').replace('\\', '/')}),
     url(r'^img/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': os.path.join(os.path.dirname(__file__), '../static/img').replace('\\', '/')}),
+    url(r'^fonts/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/fonts').replace('\\', '/')}),
+    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/assets').replace('\\', '/')}),
+
     # (r'^api/', include('api.urls')),
 ]
