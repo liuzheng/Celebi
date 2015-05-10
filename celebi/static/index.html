@@ -86,15 +86,23 @@
                     var deltaMin = deltaSecond / 60;
                     if (deltaMin > 60) {
                         var deltaHour = deltaMin / 60;
-                        $(this).html(" " + Math.round(deltaHour) + " hour")
+                        if (Math.round(deltaHour) == 1) {
+                            $(this).html(" 1 hr")
+                        } else {
+                            $(this).html(" " + Math.round(deltaHour) + " hrs")
+                        }
                     } else {
-                        $(this).html(" " + Math.round(deltaMin) + " min")
+                        if (Math.round(deltaMin) == 1) {
+                            $(this).html(" 1 min")
+                        } else {
+                            $(this).html(" " + Math.round(deltaMin) + " mins")
+                        }
                     }
                 } else {
                     if (deltaSecond < 5) {
                         $(this).html(" Now ")
                     } else {
-                        $(this).html(" " + Math.round(deltaSecond) + " sec")
+                        $(this).html(" " + Math.round(deltaSecond) + " secs")
                     }
                 }
             })
@@ -134,7 +142,7 @@
             <a href="index.html" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    Ace Admin
+                    Celebi
                 </small>
             </a>
         </div>
@@ -584,11 +592,11 @@
                         </div>
                     </div>
 
-{#                    <form>#}
-                        <div class="form-actions">
-                            <div class="input-group">
-                                <input placeholder="Type your message here ..." type="text" class="form-control"
-                                       name="message" id="YourMessage"/>
+                    {#                    <form>#}
+                    <div class="form-actions">
+                        <div class="input-group">
+                            <input placeholder="Type your message here ..." type="text" class="form-control"
+                                   name="message" id="YourMessage"/>
 																<span class="input-group-btn">
 																	<button class="btn btn-sm btn-info no-radius"
                                                                             type="button" onclick="sendMsg()">
@@ -596,9 +604,9 @@
                                                                         Send
                                                                     </button>
 																</span>
-                            </div>
                         </div>
-{#                    </form>#}
+                    </div>
+                    {#                    </form>#}
                 </div>
                 <!-- /.widget-main -->
             </div>
