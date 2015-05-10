@@ -1,0 +1,9 @@
+[submodule "celebi/modules/ui-ace"]
+	path = celebi/modules/ui-ace
+	url = https://github.com/angular-ui/ui-ace.git
+[submodule "celebi/modules/c9-ace"]
+	path = celebi/modules/c9-ace
+	url = https://github.com/ajaxorg/ace.git
+[submodule "celebi/modules/bootstrap-ace"]
+	path = celebi/modules/bootstrap-ace
+	url = https://github.com/bopoda/ace.git
