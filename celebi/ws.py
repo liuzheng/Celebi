@@ -57,6 +57,8 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, e):
         print "on_message "
+        send = {"msg": e, "time": time.mktime(time.localtime())}
+        self.write_message(json.dumps(send))
 
 
 class PLSocketHandler(tornado.websocket.WebSocketHandler):
@@ -81,7 +83,7 @@ class PLSocketHandler(tornado.websocket.WebSocketHandler):
             # sys.stdout = file = StringIO.StringIO()
             # self.write_message(file.getvalue())
             # for nextline in iter(child.stdout.readline, b''):
-            #     self.write_message("[ "+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())+"] "+nextline)
+            # self.write_message("[ "+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())+"] "+nextline)
             # child.stdout.close()
             # child.wait()
             child = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
@@ -106,7 +108,7 @@ class PLSocketHandler(tornado.websocket.WebSocketHandler):
         for (host, value) in runner_results.get('contacted', {}).iteritems():
             # if not ignore_errors and (('failed' in value and bool(value['failed'])) or
             # ('failed_when_result' in value and [value['failed_when_result']] or ['rc' in value and value['rc'] != 0])[0]):
-            #         callbacks.AggregateStats()._increment('failures', host)
+            # callbacks.AggregateStats()._increment('failures', host)
             #     elif 'skipped' in value and bool(value['skipped']):
             #         callbacks.AggregateStats()._increment('skipped', host)
             #     elif 'changed' in value and bool(value['changed']):

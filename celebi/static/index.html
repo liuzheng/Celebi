@@ -52,7 +52,7 @@
             chat = new WebSocket("ws://" + document.domain + ":8001/chat");
             chat.onmessage = function (e) {
 //                document.getElementById('msgs').innerHTML += "<br />" + e.data;
-                var ChatDetail = "hellohelllo";
+                var ChatDetail = e.data;//"hellohelllo";
                 var Position = "admin";
                 var NickName = "Bob";
                 var UserAvatar = "user.jpg";
@@ -75,24 +75,7 @@
         }
         function sendMsg() {
 //            document.getElementById('msgs').innerHTML = '';
-//            chat.send(document.getElementById('YourMessage').value);
-
-                var ChatDetail = "hellohelllo";
-                var Position = "admin";
-                var NickName = "Bob";
-                var UserAvatar = "user.jpg";
-                var Time = "1431228171";
-                var ss = "<div class=\"itemdiv dialogdiv\"><div class=\"user\"><img alt=\"" +
-                        NickName + "'s Avatar\" src=\"assets\/avatars\/" +
-                        UserAvatar+"\"/></div><div class=\"body\"><div class=\"time\"><i class=\"ace-icon fa fa-clock-o\"></i>" +
-                        "<span class=\"_timestamp js-short-timestamp js-relative-timestamp\" data-time=\"1431228171\" data-time-ms=\"1431228171000\" data-long-form=\"true\" aria-hidden=\"true\">2 hrs</span>"+
-                        "</div><div class=\"name\"><a href=\"#\">" +
-                        NickName + "</a><span class=\"label label-info arrowed arrowed-in-right\">" +
-                        Position + "</span></div><div class=\"text\">" +
-                        ChatDetail + "</div><div class=\"tools\"><a href=\"#\" class=\"btn btn-minier btn-info\"><i class=\"icon-only ace-icon fa fa-share\"></i></a></div></div></div>";
-                var ChatBox = document.getElementById('ChatBox');
-                ChatBox.innerHTML += ss;
-                ChatBox.scrollTop = ChatBox.scrollHeight;
+            chat.send(document.getElementById('YourMessage').value);
         }
     </script>
 </head>
