@@ -82,9 +82,9 @@
             $("span._timestamp").each(function () {
                 var deltaSecond = moment().diff($(this).attr("data-time") * 1000) / 1000;
                 {#                console.log(deltaSecond);#}
-                if (deltaSecond > 60) {
+                if (deltaSecond >= 60) {
                     var deltaMin = deltaSecond / 60;
-                    if (deltaMin > 60) {
+                    if (deltaMin >= 60) {
                         var deltaHour = deltaMin / 60;
                         if (Math.round(deltaHour) == 1) {
                             $(this).html(" 1 hr")
@@ -102,7 +102,7 @@
                     if (deltaSecond < 5) {
                         $(this).html(" Now ")
                     } else {
-                        $(this).html(" " + Math.round(deltaSecond) + " secs")
+                        $(this).html(" " + Math.round(deltaSecond) + " sec")
                     }
                 }
             })
